@@ -490,7 +490,34 @@ public:
         }
 */
     }
+};
 
+class TriangulationTest: public Test
+{
+public:
+    TriangulationTest()
+        : Test("TriangulationTest", 2)
+    {
+    }
+
+    void runTests()
+    {
+        issue684();
+    }
+
+    // https://github.com/libavg/libavg/issues/684
+    void issue684()
+    {
+        #define V(x, y) glm::vec2((x), (y))
+        glm::vec2 vec_array[] = {
+            V(-5,575), V(90, 500), V(444, 500), V(454, 278),
+            V(464, 215), V(505, 389), V(515, 389), V(969, 500), V(1000,575)
+        };
+        #undef V
+        Vec2Vector polygon = vectorFromCArray(9, vec_array);
+        vector<int> triangulation;
+        triangulatePolygon(polygon, triangulation);
+    }
 };
 
 
@@ -963,6 +990,7 @@ public:
         addTest(TestPtr(new ObjectCounterTest));
         addTest(TestPtr(new GeomTest));
         addTest(TestPtr(new TriangleTest));
+        addTest(TestPtr(new TriangulationTest));
         addTest(TestPtr(new FileTest));
         addTest(TestPtr(new OSTest));
         addTest(TestPtr(new StringTest));
