@@ -181,4 +181,8 @@ AC_OUTPUT(
     Makefile
     src/tess/Makefile
     src/base/Makefile
+    
+    src/graphics/Makefile
+    src/graphics/shaders/Makefile
+    src/graphics/baseline/Makefile
 )
