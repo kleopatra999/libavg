@@ -211,7 +211,7 @@ void VertexData::grow()
         bChanged = true;
         int oldReserveVerts = m_ReserveVerts;
         m_ReserveVerts = int(m_ReserveVerts*1.5);
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
         if (m_ReserveVerts > 65535) {
             throw Exception(AVG_ERR_UNSUPPORTED, 
                     "Global maximum number of vertexes reached (65535).");

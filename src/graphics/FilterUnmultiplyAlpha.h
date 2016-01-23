@@ -19,7 +19,7 @@
 //  Current versions can be found at www.libavg.de
 //
 
-#ifndef _FilterUnmultiplyAlpha_H
+#if !defined(_FilterUnmultiplyAlpha_H)
 #define _FilterUnmultiplyAlpha_H
 
 #include "../api.h"

@@ -560,7 +560,7 @@ int main(int nargs, char** args)
 {
     bool bOK = true;
     try {
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
         BitmapLoader::init(true);
         bOK = runTests(false, GLConfig::AUTO);
         bOK &= runTests(false, GLConfig::MINIMAL);

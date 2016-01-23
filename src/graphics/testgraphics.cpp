@@ -52,11 +52,11 @@
 #include "../base/Exception.h"
 #include "../base/MathHelper.h"
 
-#ifdef _WIN32
+#if defined(_WIN32)
 #pragma warning(push)
 #pragma warning(disable: 4251)
 #endif
-#ifdef _WIN32
+#if defined(_WIN32)
 #pragma warning(pop)
 #endif
 

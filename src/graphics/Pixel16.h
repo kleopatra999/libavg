@@ -77,7 +77,7 @@ inline Pixel16::Pixel16(unsigned char r, unsigned char g, unsigned char b)
 
 inline void Pixel16::set(unsigned char r, unsigned char g, unsigned char b)
 {
-#ifdef PIXEL_BGRA_ORDER
+#if defined(PIXEL_BGRA_ORDER)
     m_Data = ((r&0xF8) << 8) | ((g&0xFC) << 3) | (b>>3);
 #else
     m_Data = (b&0xF8) << 8 | ((g&0xFC) << 3) | (r>>3);
@@ -86,7 +86,7 @@ inline void Pixel16::set(unsigned char r, unsigned char g, unsigned char b)
 
 inline void Pixel16::setR(unsigned char r)
 {
-#ifdef PIXEL_BGRA_ORDER
+#if defined(PIXEL_BGRA_ORDER)
     m_Data = (m_Data&0x07FF)|((r&0xF8)<<8);
 #else
     m_Data = (m_Data&0xFFE0)|(r>>3);
@@ -101,7 +101,7 @@ inline void Pixel16::setG(unsigned char g)
 
 inline void Pixel16::setB(unsigned char b)
 {
-#ifdef PIXEL_BGRA_ORDER
+#if defined(PIXEL_BGRA_ORDER)
     m_Data = (m_Data&0xFFE0)|(b>>3);
 #else
     m_Data = (m_Data&0x07FF)|((b&0xF8)<<8);
@@ -110,7 +110,7 @@ inline void Pixel16::setB(unsigned char b)
 
 inline unsigned char Pixel16::getR() const
 {
-#ifdef PIXEL_BGRA_ORDER
+#if defined(PIXEL_BGRA_ORDER)
     return (m_Data&0xF800)>>8;
 #else
     return (m_Data&0x001F)<<3;
@@ -125,7 +125,7 @@ inline unsigned char Pixel16::getG() const
 
 inline unsigned char Pixel16::getB() const
 {
-#ifdef PIXEL_BGRA_ORDER
+#if defined(PIXEL_BGRA_ORDER)
     return (m_Data&0x001F)<<3;
 #else
     return (m_Data&0xF800)>>8;

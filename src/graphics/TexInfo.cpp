@@ -142,7 +142,7 @@ int TexInfo::getGLFormat(PixelFormat pf)
         case B8G8R8X8:
             AVG_ASSERT(!GLContext::getCurrent()->isGLES());
             return GL_BGRA;
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
         case R8:
             return GL_RED;
         case R32G32B32A32F:
@@ -168,7 +168,7 @@ int TexInfo::getGLType(PixelFormat pf)
         case R8G8B8X8:
         case B8G8R8A8:
         case B8G8R8X8:
-#ifdef __APPLE__
+#if defined(__APPLE__)
             return GL_UNSIGNED_INT_8_8_8_8_REV;
 #else
             return GL_UNSIGNED_BYTE;
@@ -200,7 +200,7 @@ int TexInfo::getGLInternalFormat() const
         case B8G8R8X8:
             AVG_ASSERT(!GLContext::getCurrent()->isGLES());
             return GL_RGBA;
-#ifndef AVG_ENABLE_EGL            
+#if !defined(AVG_ENABLE_EGL)
         case R8:
             return GL_R8;
         case R32G32B32A32F:

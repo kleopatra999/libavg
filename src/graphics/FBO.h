@@ -39,7 +39,7 @@ class GLTexture;
 typedef boost::shared_ptr<GLTexture> GLTexturePtr;
 class Bitmap;
 typedef boost::shared_ptr<Bitmap> BitmapPtr;
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
 class PBO;
 typedef boost::shared_ptr<PBO> PBOPtr;
 #endif
@@ -64,7 +64,7 @@ public:
 private:
     void init();
 
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     PBOPtr m_pOutputPBO;
 #endif
     GLuint m_FBO;

@@ -169,7 +169,7 @@ void PBO::moveToTexture(GLTexture& tex)
     glproc::BindBuffer(GL_PIXEL_UNPACK_BUFFER_EXT, m_PBOID);
     GLContext::checkError("PBO::moveToTexture: glBindBuffer()");
     tex.activate(WrapMode(), GL_TEXTURE0);
-#ifdef __APPLE__
+#if defined(__APPLE__)
     // See getStride()
     if (getPF() == A8) {
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -193,7 +193,7 @@ unsigned PBO::getStride() const
 {
     IntPoint size = getSize();
     unsigned stride = Bitmap::getPreferredStride(size.x, getPF());
-#ifdef __APPLE__
+#if defined(__APPLE__)
     if (getPF() == A8) {
         // Workaround for apparent bug in Apple/NVidia drivers (Verified on OS X 10.6.8,
         // MBP early 2011): GL_UNPACK_ALIGNMENT != 1 causes broken A8 textures.

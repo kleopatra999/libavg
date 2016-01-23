@@ -26,7 +26,7 @@
 
 #include "GLContext.h"
 
-#ifndef _WIN32
+#if !defined(_WIN32)
 #include <dlfcn.h>
 #endif
 
@@ -46,7 +46,7 @@ using namespace std;
 namespace avg {
 
 namespace glproc {
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     PFNGLBUFFERSUBDATAPROC BufferSubData;
     PFNGLGETBUFFERSUBDATAPROC GetBufferSubData;
     PFNGLBLITFRAMEBUFFERPROC BlitFramebuffer;
@@ -105,7 +105,7 @@ namespace glproc {
 #if defined(__linux__) && !defined(AVG_ENABLE_EGL)
     PFNGLXSWAPINTERVALEXTPROC SwapIntervalEXT;
 #endif
-#ifdef _WIN32
+#if defined(_WIN32)
     PFNWGLGETEXTENSIONSSTRINGARBPROC GetExtensionsStringARB;
     PFNWGLGETSWAPINTERVALEXTPROC GetSwapIntervalEXT;
     PFNWGLSWAPINTERVALEXTPROC SwapIntervalEXT;
@@ -171,7 +171,7 @@ string AVG_API oglModeToString(int mode)
             return "GL_RGB";
         case GL_RGBA:
             return "GL_RGBA";
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
         case GL_BGRA_EXT:
             return "GL_BGRA_EXT";
 #else
@@ -185,7 +185,7 @@ string AVG_API oglModeToString(int mode)
     }
 }
 
-#ifdef _WIN32
+#if defined(_WIN32)
 #define GL_ALL_CLIENT_ATTRIB_BITS GL_CLIENT_ALL_ATTRIB_BITS 
 #endif
 
@@ -228,7 +228,7 @@ void invalidGLCall()
 
 void loadGLLibrary()
 {
-#ifdef _WIN32
+#if defined(_WIN32)
     const char * pszFName = "OPENGL32.DLL";
     char szErr[512];
 
@@ -242,10 +242,10 @@ void loadGLLibrary()
                 + szErr);
     }
 #else
-#ifdef __APPLE__
+#if defined(__APPLE__)
     const char * pszFName = "/System/Library/Frameworks/OpenGL.framework/OpenGL";
 #else
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
     const char * pszFName = "libGLESv2.so";
 #else
     const char * pszFName = "libGL.so.1";
@@ -263,7 +263,7 @@ void loadGLLibrary()
 GLfunction getProcAddress(const string& sName)
 {
     AVG_ASSERT(glproc::s_hGLLib);
-#ifdef _WIN32
+#if defined(_WIN32)
     GLfunction pProc = (GLfunction)wglGetProcAddress(sName.c_str());
 /*
     if (!pProc) {
@@ -318,7 +318,7 @@ GLfunction getglXProcAddress(const char * psz)
 }
 #endif
 
-#ifdef _WIN32
+#if defined(_WIN32)
 GLfunction getwglProcAddress(const char * psz)
 {
     GLfunction pProc = (GLfunction)wglGetProcAddress((LPCSTR)psz);
@@ -401,7 +401,7 @@ namespace glproc {
 
         DeleteRenderbuffers = (PFNGLDELETERENDERBUFFERSPROC)
                 getFuzzyProcAddress("glDeleteRenderbuffers");
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
         BufferSubData = (PFNGLBUFFERSUBDATAPROC)getFuzzyProcAddress("glBufferSubData");
         GetBufferSubData = (PFNGLGETBUFFERSUBDATAPROC)getFuzzyProcAddress
             ("glGetBufferSubData");
@@ -426,7 +426,7 @@ namespace glproc {
         SwapIntervalEXT = (PFNGLXSWAPINTERVALEXTPROC)
                 getglXProcAddress("glXSwapIntervalEXT");
 #endif
-#ifdef _WIN32
+#if defined(_WIN32)
         GetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC)
                 getwglProcAddress("wglGetExtensionsStringARB");
         GetSwapIntervalEXT = (PFNWGLGETSWAPINTERVALEXTPROC)

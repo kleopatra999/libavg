@@ -21,7 +21,7 @@
 
 #include "EGLContext.h"
 #include "GLContextAttribs.h"
-#ifdef AVG_ENABLE_RPI
+#if defined(AVG_ENABLE_RPI)
     #include "BCMDisplay.h"
 #else
     #include "X11Display.h"
@@ -75,7 +75,7 @@ void EGLContext::createEGLContext(const GLConfig&, const IntPoint& windowSize)
 {
     m_bOwnsContext = true;
 
-#ifdef AVG_ENABLE_RPI
+#if defined(AVG_ENABLE_RPI)
     m_Display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 #else
     m_xDisplay = (EGLNativeDisplayType)getX11Display();
@@ -92,7 +92,7 @@ void EGLContext::createEGLContext(const GLConfig&, const IntPoint& windowSize)
     fbAttrs.append(EGL_BLUE_SIZE, 1);
     fbAttrs.append(EGL_DEPTH_SIZE, 0);
     fbAttrs.append(EGL_STENCIL_SIZE, 1);
-#ifdef AVG_ENABLE_RPI
+#if defined(AVG_ENABLE_RPI)
     int alphaSize = 1;
 #else
     int alphaSize = 0;
@@ -108,7 +108,7 @@ void EGLContext::createEGLContext(const GLConfig&, const IntPoint& windowSize)
     bOk = eglGetConfigAttrib(m_Display, config, EGL_NATIVE_VISUAL_ID, &vid);
     AVG_ASSERT(bOk);
 
-#ifndef AVG_ENABLE_RPI
+#if !defined(AVG_ENABLE_RPI)
     XVisualInfo visTemplate;
     visTemplate.visualid = vid;
     int num_visuals;
@@ -127,7 +127,7 @@ void EGLContext::createEGLContext(const GLConfig&, const IntPoint& windowSize)
         cerr << "Didn't get exactly one config, but " << numFBConfig << endl;
         return;
     }
-#ifdef AVG_ENABLE_RPI
+#if defined(AVG_ENABLE_RPI)
     m_Surface = createBCMPixmapSurface(m_Display, config);
 #else
     XVisualInfo visTemplate, *results;

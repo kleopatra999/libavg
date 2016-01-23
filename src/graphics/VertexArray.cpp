@@ -76,7 +76,7 @@ void VertexArray::update(GLContext* pContext)
                 getReserveVerts()*sizeof(Vertex), 
                 getNumVerts()*sizeof(Vertex), getVertexPointer());
         unsigned indexBufferID = m_IndexBufferIDMap[pContext];
-#ifdef AVG_ENABLE_EGL        
+#if defined(AVG_ENABLE_EGL)        
         transferBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID, 
                 getReserveIndexes()*sizeof(unsigned short),
                 getNumIndexes()*sizeof(unsigned short), getIndexPointer());
@@ -112,7 +112,7 @@ void VertexArray::draw(GLContext* pContext)
 {
     update(pContext);
     activate(pContext);
-#ifdef AVG_ENABLE_EGL        
+#if defined(AVG_ENABLE_EGL)        
     glDrawElements(GL_TRIANGLES, getNumIndexes(), GL_UNSIGNED_SHORT, 0);
 #else
     glDrawElements(GL_TRIANGLES, getNumIndexes(), GL_UNSIGNED_INT, 0);
@@ -123,7 +123,7 @@ void VertexArray::draw(GLContext* pContext)
 void VertexArray::draw(unsigned startIndex, unsigned numIndexes, unsigned startVertex,
         unsigned numVertexes)
 {
-#ifdef AVG_ENABLE_EGL        
+#if defined(AVG_ENABLE_EGL)        
     glDrawElements(GL_TRIANGLES, numIndexes, GL_UNSIGNED_SHORT, 
             (void *)(startIndex*sizeof(unsigned short)));
 #else

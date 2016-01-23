@@ -19,7 +19,7 @@
 //  Current versions can be found at www.libavg.de
 //
 
-#ifndef _Filter3x3_H
+#if !defined(_Filter3x3_H)
 #define _Filter3x3_H
 
 #include "../api.h"

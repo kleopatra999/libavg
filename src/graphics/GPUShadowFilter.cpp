@@ -49,7 +49,7 @@ GPUShadowFilter::GPUShadowFilter(const IntPoint& size, const glm::vec2& offset,
     ObjectCounter::get()->incRef(&typeid(*this));
 
     GLContext::getCurrent()->ensureFullShaders("GPUShadowFilter");
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     m_WrapMode = WrapMode(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);
 #endif
 
@@ -122,7 +122,7 @@ void GPUShadowFilter::applyOnGPU(GLContext* pContext, GLTexturePtr pSrcTex)
     FRect destRect = getRelDestRect();
     m_pVertDestPosParam->set(pContext, destRect.tl);
     m_pVertDestSizeParam->set(pContext, destRect.size());
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     getDestTex(pContext, 1)->activate(m_WrapMode, GL_TEXTURE0);
 #endif
     m_pProjection2->draw(pContext, avg::getShader(SHADERID_VERT));

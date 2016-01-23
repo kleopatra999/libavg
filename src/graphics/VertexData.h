@@ -44,7 +44,7 @@ struct Vertex {
 class VertexData;
 typedef boost::shared_ptr<VertexData> VertexDataPtr;
 
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
 #define GL_INDEX_TYPE unsigned short 
 #else
 #define GL_INDEX_TYPE unsigned int 

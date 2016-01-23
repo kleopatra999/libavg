@@ -20,17 +20,17 @@
 //
 
 #include "Display.h"
-#ifdef __linux__
-    #ifdef AVG_ENABLE_RPI
+#if defined(__linux__)
+    #if defined(AVG_ENABLE_RPI)
     #include "BCMDisplay.h"
     #else
     #include "X11Display.h"
     #endif
 #endif
-#ifdef __APPLE__
+#if defined(__APPLE__)
 #include "AppleDisplay.h"
 #endif
-#ifdef _WIN32
+#if defined(_WIN32)
 #include "WinDisplay.h"
 #endif
 #include "Bitmap.h"
@@ -48,8 +48,8 @@ DisplayPtr Display::s_pInstance = DisplayPtr();
 DisplayPtr Display::get()
 {
     if (!s_pInstance) {
-#ifdef __linux__
-    #ifdef AVG_ENABLE_RPI
+#if defined(__linux__)
+    #if defined(AVG_ENABLE_RPI)
         s_pInstance = DisplayPtr(new BCMDisplay());
     #else
         s_pInstance = DisplayPtr(new X11Display());

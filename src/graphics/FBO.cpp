@@ -38,11 +38,11 @@ using namespace boost;
 
 namespace avg {
 
-#ifndef GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS
+#if !defined(GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS)
 #define GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT
 #endif
 
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
 #define GL_DEPTH_STENCIL_EXT GL_DEPTH24_STENCIL8_OES
 #endif
 
@@ -99,7 +99,7 @@ void FBO::activate() const
 
 void FBO::copyToDestTexture() const
 {
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     if (getMultisampleSamples() != 1) {
         // Copy Multisample FBO to destination fbo
         glproc::BindFramebuffer(GL_READ_FRAMEBUFFER_EXT, m_FBO);
@@ -138,7 +138,7 @@ BitmapPtr FBO::getImage(int i) const
 void FBO::moveToPBO(int i) const
 {
     AVG_ASSERT(GLContext::getCurrent()->getMemoryMode() == MM_PBO);
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     // Get data directly from the FBO using glReadBuffer. At least on NVidia/Linux, this 
     // is faster than reading stuff from the texture.
     copyToDestTexture();
@@ -159,7 +159,7 @@ void FBO::moveToPBO(int i) const
  
 BitmapPtr FBO::getImageFromPBO() const
 {
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
     AVG_ASSERT(false);
     return BitmapPtr();
 #else
@@ -196,7 +196,7 @@ void FBO::init()
     if (numSamples > 1 && !isMultisampleFBOSupported()) {
         throw Exception(AVG_ERR_UNSUPPORTED, "OpenGL implementation does not support multisample offscreen rendering (GL_EXT_framebuffer_multisample).");
     }
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     if (GLContext::getCurrent()->getMemoryMode() == MM_PBO) {
         m_pOutputPBO = PBOPtr(new PBO(getSize(), getPF(), GL_STREAM_READ));
     }
@@ -236,7 +236,7 @@ void FBO::init()
         }
         m_OutputFBO = m_FBO;
     } else {
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
         AVG_ASSERT(false);
 #else        
         glproc::GenRenderbuffers(1, &m_ColorBuffer);
@@ -318,7 +318,7 @@ void FBO::checkError(const string& sContext)
         case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
             sErr = "GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS";
             break;
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
         case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
             sErr = "GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT";
             break;

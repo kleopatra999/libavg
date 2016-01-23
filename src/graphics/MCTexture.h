@@ -27,7 +27,7 @@
 #include "OGLHelper.h"
 
 #include <boost/shared_ptr.hpp>
-#ifdef _WIN32 
+#if defined(_WIN32) 
 #include <unordered_map>
 #elif defined __APPLE__
 #include <boost/unordered_map.hpp>
@@ -61,7 +61,7 @@ public:
     void resetDirty();
 
 private:
-#ifdef __APPLE__
+#if defined(__APPLE__)
     typedef boost::unordered_map<GLContext*, GLTexturePtr> TexMap;
 #else
     typedef std::tr1::unordered_map<GLContext*, GLTexturePtr> TexMap;

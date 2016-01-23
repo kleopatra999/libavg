@@ -89,7 +89,7 @@ void GLContext::init(const GLConfig& glConfig, bool bOwnsContext)
             m_GLConfig.m_bUseDebugContext = false;
         }
     }
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     if (m_GLConfig.m_MultiSampleSamples > 1) {
         glEnable(GL_MULTISAMPLE);
         checkError("init: glEnable(GL_MULTISAMPLE)");
@@ -110,7 +110,7 @@ void GLContext::init(const GLConfig& glConfig, bool bOwnsContext)
         } else {
             m_GLConfig.m_ShaderUsage = GLConfig::FULL;
         }
-#ifdef __APPLE__
+#if defined(__APPLE__)
         if (GLContext::isVendor("Intel")) {
             // Bug #434: Some shaders cause hard lockups on Mac Book Air.
             m_GLConfig.m_ShaderUsage = GLConfig::MINIMAL;
@@ -190,7 +190,7 @@ GLBufferCache& GLContext::getPBOCache()
 unsigned GLContext::genFBO()
 {
     unsigned fboID;
-#ifdef AVG_ENABLE_RPI
+#if defined(AVG_ENABLE_RPI)
     glproc::GenFramebuffers(1, &fboID);
 #else
     if (m_FBOIDs.empty()) {
@@ -205,7 +205,7 @@ unsigned GLContext::genFBO()
 
 void GLContext::returnFBOToCache(unsigned fboID) 
 {
-#ifdef AVG_ENABLE_RPI
+#if defined(AVG_ENABLE_RPI)
     glproc::DeleteFramebuffers(1, &fboID);
 #else
     m_FBOIDs.push_back(fboID);
@@ -406,7 +406,7 @@ bool GLContext::initVBlank(int rate)
 {
     int rc = SDL_GL_SetSwapInterval(rate);
     if (rc == -1) {
-#ifndef WIN32
+#if !defined(WIN32)
         AVG_LOG_WARNING("VBlank setup failed.");
 #endif
         return false;
@@ -457,7 +457,7 @@ void GLContext::mandatoryCheckError(const char* pszWhere)
             case GL_OUT_OF_MEMORY:
                 sErr = "GL_OUT_OF_MEMORY";
                 break;
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
             case GL_STACK_UNDERFLOW:
                 sErr = "GL_STACK_UNDERFLOW";
                 break;
@@ -621,13 +621,13 @@ void GLContext::debugLogCallback(GLenum source, GLenum type, GLuint id,
 */
 
     // XXX Temporary to clean up NVidia message spam.
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     if (type != GL_DEBUG_TYPE_PERFORMANCE_ARB && s_bErrorLogEnabled) {
 #endif
         AVG_LOG_DEBUG(message);
         //        dumpBacktrace();
         //        AVG_ASSERT(false);
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     }
 #endif
 }

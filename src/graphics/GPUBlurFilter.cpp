@@ -52,7 +52,7 @@ GPUBlurFilter::GPUBlurFilter(const IntPoint& size, PixelFormat pfSrc, PixelForma
     ObjectCounter::get()->incRef(&typeid(*this));
 
     GLContext::getCurrent()->ensureFullShaders("GPUBlurFilter");
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     if (!m_bClipBorders) {
         //TODO: TO_BORDER DOES NOT EXIST IN GLESV2
         m_WrapMode = WrapMode(GL_CLAMP_TO_BORDER, GL_CLAMP_TO_BORDER);

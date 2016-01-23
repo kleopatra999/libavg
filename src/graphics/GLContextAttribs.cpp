@@ -24,7 +24,7 @@
 
 #include "../base/Exception.h"
 
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
     #define ATTR_NONE EGL_NONE
 #else
     #define ATTR_NONE 0

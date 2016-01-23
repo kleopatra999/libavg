@@ -33,7 +33,7 @@
 #include <string>
 #include <list>
 
-#ifdef _WIN32
+#if defined(_WIN32)
 #include <unordered_map>
 #elif defined __APPLE__
 #include <boost/unordered_map.hpp>
@@ -78,7 +78,7 @@ class AVG_API ImageCache
         // 3) Images that are unused but cached.
         // The third partition is sorted by LRU.
         LRUListType m_pLRUList;
-#ifdef __APPLE__
+#if defined(__APPLE__)
         typedef boost::unordered_map<std::string, LRUListType::iterator> ImageMap;
 #else
         typedef std::tr1::unordered_map<std::string, LRUListType::iterator> ImageMap;

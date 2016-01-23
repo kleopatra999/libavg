@@ -32,10 +32,10 @@
 #include "MCFBO.h"
 #include "ShaderRegistry.h"
 
-#ifdef __APPLE__
+#if defined(__APPLE__)
     #include "CGLContext.h"
 #elif defined __linux__
-    #ifdef AVG_ENABLE_EGL
+    #if defined(AVG_ENABLE_EGL)
         #include "EGLContext.h"
     #else
         #include "GLXContext.h"
@@ -89,10 +89,10 @@ GLContext* GLContextManager::createContext(const GLConfig& glConfig,
         AVG_ASSERT(isGLESSupported());
     }
     GLContext* pContext;
-#ifdef __APPLE__
+#if defined(__APPLE__)
     pContext = new CGLContext(glConfig, windowSize, pSDLWMInfo);
 #elif defined __linux__
-    #ifdef AVG_ENABLE_EGL
+    #if defined(AVG_ENABLE_EGL)
         GLConfig tempConfig = glConfig;
         tempConfig.m_bGLES = true;
         pContext = new EGLContext(tempConfig, windowSize, pSDLWMInfo);
@@ -264,7 +264,7 @@ void GLContextManager::reset()
 bool GLContextManager::isGLESSupported()
 {
 #if defined __linux__
-    #ifdef AVG_ENABLE_EGL
+    #if defined(AVG_ENABLE_EGL)
     return true;
     #else
     return GLXContext::isGLESSupported();

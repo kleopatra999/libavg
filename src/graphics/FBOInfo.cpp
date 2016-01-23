@@ -71,7 +71,7 @@ bool FBOInfo::isFBOSupported()
 
 bool FBOInfo::isMultisampleFBOSupported()
 {
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
     return false;
 #else
     int maxSamples;

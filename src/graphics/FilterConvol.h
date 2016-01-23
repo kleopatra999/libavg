@@ -19,7 +19,7 @@
 //  Current versions can be found at www.libavg.de
 //
 
-#ifndef _FilterConvol_H
+#if !defined(_FilterConvol_H)
 #define _FilterConvol_H
 
 #include "../api.h"

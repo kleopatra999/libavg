@@ -19,7 +19,7 @@
 //  Current versions can be found at www.libavg.de
 //
 
-#ifndef _FilterThreshold_H
+#if !defined(_FilterThreshold_H)
 #define _FilterThreshold_H
 
 #include "../api.h"

@@ -19,7 +19,7 @@
 //  Current versions can be found at www.libavg.de
 //
 
-#ifndef _FilterMask_H
+#if !defined(_FilterMask_H)
 #define _FilterMask_H
 
 #include "../api.h"

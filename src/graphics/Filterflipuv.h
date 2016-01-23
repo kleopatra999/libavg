@@ -19,7 +19,7 @@
 //  Current versions can be found at www.libavg.de
 //
 
-#ifndef _Filterflipuv_H
+#if !defined(_Filterflipuv_H)
 #define _Filterflipuv_H
 
 #include "../api.h"

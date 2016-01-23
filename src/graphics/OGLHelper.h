@@ -25,7 +25,7 @@
 #include "../api.h"
 #include "../avgconfigwrapper.h"
 
-#ifdef _WIN32
+#if defined(_WIN32)
     #include <windows.h>
     #undef ERROR
     #undef WARNING
@@ -33,7 +33,7 @@
     #include "GL/glext.h"
     #include "GL/wglext.h"
 #else
-    #ifdef AVG_ENABLE_EGL
+    #if defined(AVG_ENABLE_EGL)
         #define EGL_EGLEXT_PROTOTYPES
         #include <EGL/egl.h>
         #include <GLES2/gl2.h>
@@ -45,20 +45,20 @@
 #endif
 #if defined(__linux__) && !defined(AVG_ENABLE_EGL)
         #define GLX_GLXEXT_PROTOTYPES
-        #ifndef __GLXextFuncPtr
+        #if !defined(__GLXextFuncPtr)
             typedef void (*__GLXextFuncPtr)(void);
         #endif
         #include "GL/glx.h"
 #endif
 
-#ifdef __linux__
-    #ifndef GLX_CONTEXT_ES2_PROFILE_BIT_EXT
+#if defined(__linux__)
+    #if !defined(GLX_CONTEXT_ES2_PROFILE_BIT_EXT)
         #define GLX_CONTEXT_ES2_PROFILE_BIT_EXT 0x00000004
     #endif
 #endif
 
 // For NVX_gpu_memory_info
-#ifndef GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX
+#if !defined(GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX)
     #define GPU_MEMORY_INFO_DEDICATED_VIDMEM_NVX          0x9047
     #define GPU_MEMORY_INFO_TOTAL_AVAILABLE_MEMORY_NVX    0x9048
     #define GPU_MEMORY_INFO_CURRENT_AVAILABLE_VIDMEM_NVX  0x9049
@@ -68,7 +68,7 @@
 
 #include <string>
 
-#ifndef APIENTRY
+#if !defined(APIENTRY)
 #define APIENTRY
 #endif
 
@@ -89,11 +89,11 @@ void AVG_API clearGLBuffers(GLbitfield mask, bool bOpaque);
 
 typedef void (*GLfunction)();
 GLfunction AVG_API getFuzzyProcAddress(const char * psz);
-#ifdef __linux__
+#if defined(__linux__)
 GLfunction getglXProcAddress(const char * psz);
 #endif
 
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
 #define GL_WRITE_ONLY GL_WRITE_ONLY_OES
 #define GL_DYNAMIC_READ 0x88E9
 #define GL_BGRA 0x80E1
@@ -176,7 +176,7 @@ typedef void (GL_APIENTRYP PFNGLBINDATTRIBLOCATIONPROC) (GLuint program, GLuint 
 namespace glproc {
     extern AVG_API PFNGLGENBUFFERSPROC GenBuffers;
     extern AVG_API PFNGLBUFFERDATAPROC BufferData;
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     extern AVG_API PFNGLBUFFERSUBDATAPROC BufferSubData;
     extern AVG_API PFNGLGETBUFFERSUBDATAPROC GetBufferSubData;
     extern AVG_API PFNGLDRAWBUFFERSPROC DrawBuffers;
@@ -235,7 +235,7 @@ namespace glproc {
 #if defined(__linux__) && !defined(AVG_ENABLE_EGL)
     extern PFNGLXSWAPINTERVALEXTPROC SwapIntervalEXT;
 #endif
-#ifdef _WIN32
+#if defined(_WIN32)
     extern AVG_API PFNWGLGETEXTENSIONSSTRINGARBPROC GetExtensionsStringARB;
     extern AVG_API PFNWGLGETSWAPINTERVALEXTPROC GetSwapIntervalEXT;
     extern AVG_API PFNWGLSWAPINTERVALEXTPROC SwapIntervalEXT;

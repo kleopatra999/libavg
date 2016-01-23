@@ -50,7 +50,7 @@ private:
             const std::string& name) const;
 
     bool m_bOwnsContext;
-#ifndef AVG_ENABLE_RPI
+#if !defined(AVG_ENABLE_RPI)
     EGLNativeDisplayType m_xDisplay;
 #endif
     EGLDisplay m_Display;

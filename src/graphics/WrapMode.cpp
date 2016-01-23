@@ -47,7 +47,7 @@ const string wrapModeToStr(unsigned wrapMode)
         case GL_CLAMP_TO_EDGE:
             sWrapMode = "CLAMP_TO_EDGE";
             break;
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
         case GL_CLAMP:
             sWrapMode = "CLAMP";
             break;
