@@ -21,7 +21,13 @@
 
 #include "Backtrace.h"
 
-#ifndef _WIN32
+#if defined(_WIN32) || defined(__ANDROID__)
+#undef IMPLEMENT
+#else
+#define IMPLEMENT
+#endif
+
+#ifdef IMPLEMENT
 #include <execinfo.h>
 #include <cxxabi.h>
 #endif
@@ -36,7 +42,7 @@ namespace avg {
 
 void dumpBacktrace()
 {
-#ifndef _WIN32
+#ifdef IMPLEMENT
     vector<string> sFuncs;
     getBacktrace(sFuncs);
     vector<string>::iterator it = sFuncs.begin();
@@ -76,7 +82,7 @@ void consolidateRepeatedLines(vector<string>& sFuncs, unsigned& i, unsigned numS
 
 void getBacktrace(vector<string>& sFuncs)
 {
-#ifndef _WIN32
+#ifdef IMPLEMENT
     void* callstack[128];
     int numFrames = backtrace(callstack, 128);
     char** ppszLines = backtrace_symbols(callstack, numFrames);
