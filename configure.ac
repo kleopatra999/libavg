@@ -63,8 +63,8 @@ fi
 PKG_CHECK_MODULES([AVRESAMPLE], [libavresample], [LIBAVRESAMPLE="$AVRESAMPLE_LIBS"], [:])
 AC_SUBST(LIBAVRESAMPLE)
 
-AM_PATH_PYTHON
-AX_PYTHON_DEVEL
+#AM_PATH_PYTHON
+#AX_PYTHON_DEVEL
 
 AC_ARG_VAR(BOOST_PYTHON_LIBS, [linker flags for BOOST, defaults to -lboost_python])
 if test -z "$BOOST_PYTHON_LIBS"
@@ -76,8 +76,9 @@ then
   fi
   BOOST_PYTHON_LIBS="-lboost_python"
 fi
-    
+
 AX_BOOST_THREAD
+BOOST_THREAD_LIBS=-lboost_thread
 if test -z "$BOOST_THREAD_LIBS"; then
    AC_MSG_ERROR([boost.thread not found. Aborting.])
 fi
@@ -145,6 +146,7 @@ if test "$enable_egl" = yes; then
     AC_DEFINE(AVG_ENABLE_EGL, 1, [Enable EGL support])
 else
     AX_CHECK_GL
+    GL_LIBS=-lfail
     if test x"$GL_LIBS" = x; then
         AC_MSG_ERROR([OpenGL not found. Aborting])
     fi
@@ -174,35 +176,8 @@ AM_CONDITIONAL(APPLE, test $target_vendor = apple)
 PREFIX=$prefix
 AC_SUBST(PREFIX)
 AC_CONFIG_HEADERS(src/avgconfig.h)
-AC_OUTPUT(Makefile 
-    src/Makefile 
-    src/test/Makefile 
-    src/test/baseline/Makefile
-    src/test/fonts/Makefile
-    src/test/extrafonts/Makefile
-    src/test/testmediadir/Makefile
-    src/test/media/Makefile
-    src/test/media/incompleteSkinMedia/Makefile
-    src/test/plugin/Makefile
-    src/base/Makefile 
-    src/tess/Makefile 
-    src/wrapper/Makefile 
-    src/player/Makefile 
-    src/graphics/Makefile 
-    src/graphics/shaders/Makefile 
-    src/graphics/baseline/Makefile 
-    src/python/Makefile
-    src/imaging/Makefile 
-    src/video/Makefile 
-    src/audio/Makefile 
-    src/utils/Makefile 
-    src/anim/Makefile 
-    src/python/data/Makefile 
-    src/samples/Makefile 
-    src/samples/firebirds/Makefile
-    src/samples/firebirds/plugin/Makefile
-    src/samples/firebirds/media/Makefile
-    src/python/widget/Makefile 
-    src/python/app/Makefile 
-    src/oscpack/Makefile 
-    man/Makefile)
+
+AC_OUTPUT(
+    Makefile
+    src/base/Makefile
+)
