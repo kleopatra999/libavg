@@ -78,7 +78,7 @@ then
 fi
 
 AX_BOOST_THREAD
-BOOST_THREAD_LIBS=-lboost_thread
+BOOST_THREAD_LIBS="-lboost_system -lboost_thread"
 if test -z "$BOOST_THREAD_LIBS"; then
    AC_MSG_ERROR([boost.thread not found. Aborting.])
 fi
@@ -179,5 +179,6 @@ AC_CONFIG_HEADERS(src/avgconfig.h)
 
 AC_OUTPUT(
     Makefile
+    src/tess/Makefile
     src/base/Makefile
 )
