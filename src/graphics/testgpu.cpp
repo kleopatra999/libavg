@@ -47,8 +47,6 @@
 #include <math.h>
 #include <iostream>
 
-#include <glib-object.h>
-
 using namespace avg;
 using namespace std;
 
