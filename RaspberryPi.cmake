@@ -1,0 +1,2 @@
+set(CMAKE_SYSTEM_NAME RaspberryPi)
+set(CMAKE_SYSTEM_VERSION 1)
