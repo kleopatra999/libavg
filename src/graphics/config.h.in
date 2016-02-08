@@ -1,10 +1,10 @@
 #include "../api.h"
-#cmakedefine01 PLATFORM_LINUX
+#cmakedefine PLATFORM_LINUX
 
-#cmakedefine01 AVG_ENABLE_CGL_QUARTZ
-#cmakedefine01 AVG_ENABLE_EGL_BCM
-#cmakedefine01 AVG_ENABLE_GLX_X11
+#cmakedefine AVG_ENABLE_CGL_QUARTZ
+#cmakedefine AVG_ENABLE_EGL_BCM
+#cmakedefine AVG_ENABLE_GLX_X11
 
 // old feature macros
-#cmakedefine01 AVG_ENABLE_EGL
-#cmakedefine01 AVG_ENABLE_RPI
+#cmakedefine AVG_ENABLE_EGL
+#cmakedefine AVG_ENABLE_RPI
