@@ -23,7 +23,7 @@
 #define _Display_H_
 
 #include "../api.h"
-#include "../avgconfigwrapper.h"
+#include "config.h"
 
 #include "../base/GLMHelper.h"
 

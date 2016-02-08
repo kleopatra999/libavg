@@ -23,7 +23,7 @@
 #define _WinDisplay_H_
 
 #include "../api.h"
-#include "../avgconfigwrapper.h"
+#include "config.h"
 
 #include "Display.h"
 

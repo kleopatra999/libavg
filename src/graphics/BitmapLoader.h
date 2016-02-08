@@ -23,7 +23,7 @@
 #define _BitmapLoader_H_
 
 #include "../api.h"
-#include "../avgconfigwrapper.h"
+#include "config.h"
 
 #include "Bitmap.h"
 #include "PixelFormat.h"

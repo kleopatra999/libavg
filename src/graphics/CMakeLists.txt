@@ -1,3 +1,5 @@
+configure_file(config.h.in config.h)
+
 add_library(graphics
         Bitmap.cpp Filter.cpp Pixel32.cpp Filtergrayscale.cpp PixelFormat.cpp  
         Filtercolorize.cpp Filterflip.cpp FilterflipX.cpp Filterfliprgb.cpp 

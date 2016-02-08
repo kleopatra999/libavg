@@ -23,7 +23,7 @@
 #define _AppleDisplay_H_
 
 #include "../api.h"
-#include "../avgconfigwrapper.h"
+#include "config.h"
 
 #include "Display.h"
 
