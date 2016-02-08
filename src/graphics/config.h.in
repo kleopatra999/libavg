@@ -1,4 +1,6 @@
 #include "../api.h"
+#cmakedefine01 PLATFORM_LINUX
+
 #cmakedefine01 AVG_ENABLE_CGL_QUARTZ
 #cmakedefine01 AVG_ENABLE_EGL_BCM
 #cmakedefine01 AVG_ENABLE_GLX_X11

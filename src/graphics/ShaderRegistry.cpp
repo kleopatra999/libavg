@@ -58,7 +58,7 @@ ShaderRegistry::~ShaderRegistry()
 void ShaderRegistry::setShaderPath(const string& sLibPath)
 {
     s_sLibPath = sLibPath;
-#ifdef __linux__
+#ifdef PLATFORM_LINUX
     // XXX: If we're running make distcheck, the shaders are in a different place than
     // usual. Grrr.
     char * pszSrcDir = getenv("srcdir");

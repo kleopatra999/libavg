@@ -20,7 +20,7 @@
 //
 
 #include "Display.h"
-#ifdef __linux__
+#ifdef PLATFORM_LINUX
     #ifdef AVG_ENABLE_RPI
     #include "BCMDisplay.h"
     #else
@@ -48,7 +48,7 @@ DisplayPtr Display::s_pInstance = DisplayPtr();
 DisplayPtr Display::get()
 {
     if (!s_pInstance) {
-#ifdef __linux__
+#ifdef PLATFORM_LINUX
     #ifdef AVG_ENABLE_RPI
         s_pInstance = DisplayPtr(new BCMDisplay());
     #else
