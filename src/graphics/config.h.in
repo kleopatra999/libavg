@@ -2,3 +2,7 @@
 #cmakedefine01 AVG_ENABLE_CGL_QUARTZ
 #cmakedefine01 AVG_ENABLE_EGL_BCM
 #cmakedefine01 AVG_ENABLE_GLX_X11
+
+// old feature macros
+#cmakedefine01 AVG_ENABLE_EGL
+#cmakedefine01 AVG_ENABLE_RPI

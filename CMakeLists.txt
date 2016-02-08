@@ -77,6 +77,8 @@ if(${AVG_ENABLE_CGL_QUARTZ})
     # pkg_check_modules in PLATFORM_MACOSX check
 endif()
 if(${AVG_ENABLE_EGL_BCM})
+    set(AVG_ENABLE_EGL) # old macro
+    set(AVG_ENABLE_RPI) # old macro
     pkg_check_modules(EGL_BCM REQUIRED egl bcm)
 endif()
 
