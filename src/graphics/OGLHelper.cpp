@@ -134,9 +134,7 @@ bool queryOGLExtension(const char *extName)
 
 bool queryGLXExtension(const char *extName)
 {
-#if (defined __APPLE__) || (defined _WIN32) || (defined AVG_ENABLE_EGL)
-    return false;
-#else
+#if defined(AVG_ENABLE_GLX_X11)
     int extNameLen = strlen(extName);
 
     Display * display = XOpenDisplay(0);
@@ -158,6 +156,8 @@ bool queryGLXExtension(const char *extName)
         p += (n + 1);
     }
 //    XCloseDisplay(display);
+    return false;
+#else
     return false;
 #endif
 }
