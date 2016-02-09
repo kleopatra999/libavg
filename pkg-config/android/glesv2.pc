@@ -1,0 +1,11 @@
+prefix=/usr/lib
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: GLESv2
+Description:
+Version: 10
+Requires:
+Libs: -L${libdir} -lGLESv2
+Cflags: -I${includedir}
