@@ -87,11 +87,11 @@ endif()
 if(${AVG_ENABLE_EGL_BCM})
     set(AVG_ENABLE_EGL TRUE)
     set(AVG_ENABLE_RPI TRUE) # TODO replace with PLATFORM_RPI
-    pkg_check_modules(EGL_BCM REQUIRED egl bcm)
+    pkg_check_modules(EGL_BCM REQUIRED egl bcm glesv2)
 endif()
 if(${AVG_ENABLE_EGL_SDL2})
     set(AVG_ENABLE_EGL TRUE)
-    pkg_check_modules(EGL_SDL2 REQUIRED egl)
+    pkg_check_modules(EGL_SDL2 REQUIRED egl glesv2)
 endif()
 
 
