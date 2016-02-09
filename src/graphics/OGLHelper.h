@@ -25,33 +25,33 @@
 #include "../api.h"
 #include "config.h"
 
-#ifdef _WIN32
+#if defined(_WIN32)
     #include <windows.h>
     #undef ERROR
     #undef WARNING
     #include <GL/gl.h>
     #include "GL/glext.h"
     #include "GL/wglext.h"
-#else
-    #ifdef AVG_ENABLE_EGL
-        #define EGL_EGLEXT_PROTOTYPES
-        #include <EGL/egl.h>
-        #include <GLES2/gl2.h>
-        #include <GLES2/gl2ext.h>
-    #else
-        #include "GL/gl.h"
-        #include "GL/glext.h"
-    #endif
-#endif
-#if defined(PLATFORM_LINUX) && !defined(AVG_ENABLE_EGL)
-        #define GLX_GLXEXT_PROTOTYPES
-        #ifndef __GLXextFuncPtr
-            typedef void (*__GLXextFuncPtr)(void);
-        #endif
-        #include "GL/glx.h"
 #endif
 
-#ifdef PLATFORM_LINUX
+#if defined(AVG_ENABLE_EGL)
+    #define EGL_EGLEXT_PROTOTYPES
+    #include <EGL/egl.h>
+    #include <GLES2/gl2.h>
+    #include <GLES2/gl2ext.h>
+#endif
+
+#if defined(AVG_ENABLE_GLX_X11)
+    #include "GL/gl.h"
+    #include "GL/glx.h"
+    #include "GL/glext.h"
+    #define GLX_GLXEXT_PROTOTYPES
+    #ifndef __GLXextFuncPtr
+        typedef void (*__GLXextFuncPtr)(void);
+    #endif
+#endif
+
+#if defined(PLATFORM_LINUX)
     #ifndef GLX_CONTEXT_ES2_PROFILE_BIT_EXT
         #define GLX_CONTEXT_ES2_PROFILE_BIT_EXT 0x00000004
     #endif
@@ -89,11 +89,11 @@ void AVG_API clearGLBuffers(GLbitfield mask, bool bOpaque);
 
 typedef void (*GLfunction)();
 GLfunction AVG_API getFuzzyProcAddress(const char * psz);
-#ifdef PLATFORM_LINUX
+#if defined(AVG_ENABLE_GLX_X11)
 GLfunction getglXProcAddress(const char * psz);
 #endif
 
-#ifdef AVG_ENABLE_EGL
+#if defined(AVG_ENABLE_EGL)
 #define GL_WRITE_ONLY GL_WRITE_ONLY_OES
 #define GL_DYNAMIC_READ 0x88E9
 #define GL_BGRA 0x80E1
@@ -176,7 +176,7 @@ typedef void (GL_APIENTRYP PFNGLBINDATTRIBLOCATIONPROC) (GLuint program, GLuint 
 namespace glproc {
     extern AVG_API PFNGLGENBUFFERSPROC GenBuffers;
     extern AVG_API PFNGLBUFFERDATAPROC BufferData;
-#ifndef AVG_ENABLE_EGL
+#if !defined(AVG_ENABLE_EGL)
     extern AVG_API PFNGLBUFFERSUBDATAPROC BufferSubData;
     extern AVG_API PFNGLGETBUFFERSUBDATAPROC GetBufferSubData;
     extern AVG_API PFNGLDRAWBUFFERSPROC DrawBuffers;

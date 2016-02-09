@@ -15,6 +15,9 @@ endif()
 if(${CMAKE_SYSTEM_NAME} MATCHES Windows)
     set(PLATFORM_WINDOWS TRUE)
 endif()
+if(${CMAKE_SYSTEM_NAME} MATCHES Android)
+    set(PLATFORM_ANDROID TRUE)
+endif()
 
 find_package(Boost 1.58 REQUIRED system thread)
 find_package(PkgConfig REQUIRED)
@@ -66,6 +69,11 @@ if(${PLATFORM_RPI})
     set(AVG_ENABLE_EGL_BCM TRUE)
 endif()
 
+if(${PLATFORM_ANDROID})
+    set(ENV{PKG_CONFIG_PATH} ./pkg-config/android)
+    set(AVG_ENABLE_EGL_SDL2 TRUE)
+endif()
+
 
 
 # feature configuration
@@ -77,9 +85,24 @@ if(${AVG_ENABLE_CGL_QUARTZ})
     # pkg_check_modules in PLATFORM_MACOSX check
 endif()
 if(${AVG_ENABLE_EGL_BCM})
-    set(AVG_ENABLE_EGL) # old macro
-    set(AVG_ENABLE_RPI) # old macro
+    set(AVG_ENABLE_EGL TRUE)
+    set(AVG_ENABLE_RPI TRUE) # TODO replace with PLATFORM_RPI
     pkg_check_modules(EGL_BCM REQUIRED egl bcm)
 endif()
+if(${AVG_ENABLE_EGL_SDL2})
+    set(AVG_ENABLE_EGL TRUE)
+    pkg_check_modules(EGL_SDL2 REQUIRED egl)
+endif()
+
+
+
+# quick fixes
+
+# XXX I don't know yet what the best way is to propagate the link dependencies
+#     of gdk_pixbuf dependencies. They are written into .la files, but CMake
+#     doesn't use them automatically.
+list(APPEND GDK_PIXBUF_LDFLAGS -lgobject-2.0 -lffi -lgio-2.0 -lgmodule-2.0 -lintl -lc -lz)
+
+
 
 add_subdirectory(src)

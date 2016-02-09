@@ -46,6 +46,12 @@ if(${AVG_ENABLE_EGL_BCM})
     target_sources(graphics
         PRIVATE EGLContext.cpp BCMDisplay.cpp)
 endif()
+if(${AVG_ENABLE_EGL_SDL2})
+    target_link_libraries(graphics
+        PUBLIC ${EGL_SDL2_LDFLAGS})
+    target_compile_options(graphics
+        PRIVATE ${EGL_SDL2_CFLAGS})
+endif()
 
 link_libraries(graphics)
 add_executable(testgraphics testgraphics.cpp)
